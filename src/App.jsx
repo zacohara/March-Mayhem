@@ -852,18 +852,8 @@ export default function App() {
         break;
       }
     }
-    // Auto-advance: if current round is done and no next-round games exist, generate them
-    const curRd=state.currentRound;
-    const curGames=state.games.filter(g=>g.round===curRd);
-    const allDone=curGames.length>0&&curGames.every(g=>g.completed);
-    const nextGames=state.games.filter(g=>g.round===curRd+1);
-    if(allDone&&nextGames.length===0&&curRd<5){
-      const next=generateNextRound(state);
-      if(next){
-        console.log("Auto-advancing to round",curRd+2);
-        save(next);
-      }
-    }
+    // Note: next round games are added manually with real ESPN matchups/spreads
+    // Auto-advance only bumps currentRound, does NOT generate games
   },[state.games,loaded,player]);
   const champ=alive.length===1?alive[0]:null;
   const co=champ?state.players[champ.currentOwner]:null;
